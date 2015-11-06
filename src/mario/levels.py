@@ -1,10 +1,13 @@
 from FGAme import World, Color
 from FGAme.extra.tiles import TileManager
-from mario.constants import *  # @UnusedWildImport
+from mario.constants import SCALE, TILESIZE, GRAVITY, FRICTION
 from mario.mario_object import Mario 
 
 class LevelBase(World):
     TILES = None 
+    
+    def __init__(self):
+        super().__init__(friction=FRICTION)
     
     def init(self):
         self.gravity = GRAVITY
@@ -35,6 +38,7 @@ class LevelBase(World):
             'coin', 'o', 
             shape='circle', 
             image='images/coin4',
+            friction=0,
             image_scale=SCALE,
         )
         tm.register_spec(

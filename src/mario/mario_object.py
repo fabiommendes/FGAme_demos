@@ -39,5 +39,6 @@ class Mario(AABB, TileObject):
 
     def on_pre_collision(self, col):
         other = col.other(self)
-        if other.pos.y > self.pos.y:
-            col.cancel()
+        if other.name == 'platform':
+            if other.pos.y > self.pos.y or col.normal.x != 0:
+                col.cancel()
