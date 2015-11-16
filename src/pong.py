@@ -31,7 +31,7 @@ class Pong(World):
         
         # Vidas
         self.life_p1 = [
-            Circle(8, pos=(20, 565), color=LIFE_COLOR, col_layer=1),
+            draw.Circle(8, pos=(20, 565), color=LIFE_COLOR),
             Circle(8, pos=(43, 565), color=LIFE_COLOR, col_layer=1),
             Circle(8, pos=(66, 565), color=LIFE_COLOR, col_layer=1),
         ]
