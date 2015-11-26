@@ -28,14 +28,19 @@ def resolve_collision(col):
     # Implemente aqui a rotina correta.
     A, B = col
     n = col.normal
-    if (B.vel - A.vel).dot(n) <0:
-        A.vel -= 2 * A.vel.dot(n) * n
-        B.vel -= 2 * B.vel.dot(n) * n
+    e = col.restitution
+    Vrel = (B.vel - A.vel).dot(n)
+    
+    if Vrel <0:   
         
-    J = Vec2(0, 0)
-    A.apply_impulse(J, pos = col.pos)
-    B.apply_impulse(J, pos = col.pos)
+        J = (1 + e) * Vrel / (1 / B.mass + 1 / A.mass)
+        Jvec = J * n
+        A.vel = A.vel + Jvec / A.mass
+        B.vel = B.vel - Jvec / B.mass
+        #A.apply_impulse(Jvec)
+        #B.apply_impulse(-Jvec)
 
+    
 # Aqui chamamos uma simulação já pronta para testar nosso método de resolução
 # de colisões.
 from FGAme.demos.simulations import gas_polys

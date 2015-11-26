@@ -5,7 +5,7 @@ from FGAme.events.util import listen
 from FGAme import draw
 from FGAme.actions import *
 
-class GravityWorld(World):
+class ElasticPong(World):
 
     def init(self):
 
@@ -41,18 +41,16 @@ class GravityWorld(World):
     def start_vel_line(self, pos):
         if hasattr(self, 'vel_line'):
             self.remove(self.vel_line)
-            del self.vel_line
         
         if abs(self.A.pos - pos) < self.A.radius:
             self.toggle_pause()
-            self.vel_line = draw.Segment(pos, pos, color='red', width=2)
+            self.vel_line = draw.Segment(pos, pos, color='red', linewidth=5)
             self.add(self.vel_line)
             self.modify_speed = True
             
             def func():
                 if hasattr(self, 'vel_line'):
                     self.remove(self.vel_line)
-                    del self.vel_line
             
             action = delay(1.5) >> call_function(func)
             action.start()
@@ -73,5 +71,5 @@ class GravityWorld(World):
 
         
 if __name__ == '__main__':
-    world = GravityWorld()
+    world = ElasticPong()
     world.run()
