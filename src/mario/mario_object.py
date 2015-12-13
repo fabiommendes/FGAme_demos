@@ -2,6 +2,7 @@ from FGAme import AABB, listen
 from FGAme.extra.tiles import TileObject 
 from mario.constants import *  # @UnusedWildImport
 
+
 class Mario(AABB, TileObject):
     '''Representa o Mario'''
     
@@ -39,6 +40,10 @@ class Mario(AABB, TileObject):
 
     def on_pre_collision(self, col):
         other = col.other(self)
-        if other.name == 'platform':
-            if other.pos.y > self.pos.y or col.normal.x != 0:
-                col.cancel()
+        try:
+            if other.name == 'platform':
+                if other.pos.y > self.pos.y or col.normal.x != 0:
+                    col.cancel()
+        except AttributeError:
+            pass
+

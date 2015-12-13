@@ -1,7 +1,8 @@
-from FGAme import World, Color
+from FGAme import World, Color, RegularPoly, camera
 from FGAme.extra.tiles import TileManager
 from mario.constants import SCALE, TILESIZE, GRAVITY, FRICTION
 from mario.mario_object import Mario 
+
 
 class LevelBase(World):
     TILES = None 
@@ -15,6 +16,18 @@ class LevelBase(World):
         self.add(self.mario)
         self.create_tiles()
         self.background = Color(80, 220, 255)
+        self.hex = RegularPoly(6, 40,
+                               color='red',
+                               pos=(400, 300),
+                               image='images/bowser4',
+                               image_scale=2,
+                               restitution=0.2,
+                               friction=0.5)
+        self.hex.name = 'browser'
+        self.add(self.hex)
+
+    def on_frame_enter(self):
+        camera.panright(1)
 
     def create_tiles(self):
         self.tilemanager = tm = TileManager((TILESIZE, TILESIZE))

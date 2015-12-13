@@ -27,18 +27,18 @@ class Pong(World):
         self.lower_limit = AABB(-500, 800 + 500, -50, 10, mass='inf', color=LIMIT_COLOR)
         
         # Linhas
-        self.add(AABB(395, 405, 10, 590, color='#333', col_layer=1), -1)
+        self.add(draw.AABB(395, 405, 10, 590, color='#333', col_layer=1))
         
         # Vidas
         self.life_p1 = [
             draw.Circle(8, pos=(20, 565), color=LIFE_COLOR),
-            Circle(8, pos=(43, 565), color=LIFE_COLOR, col_layer=1),
-            Circle(8, pos=(66, 565), color=LIFE_COLOR, col_layer=1),
+            draw.Circle(8, pos=(43, 565), color=LIFE_COLOR),
+            draw.Circle(8, pos=(66, 565), color=LIFE_COLOR),
         ]
         self.life_p2 = [
-            Circle(10, pos=(500, 550), color=LIFE_COLOR, col_layer=1),
-            #Circle(40, pos=(500, 550), color=LIFE_COLOR, col_layer=1),
-            #Circle(40, pos=(500, 550), color=LIFE_COLOR, col_layer=1),
+            draw.Circle(8, pos=(734, 565), color=LIFE_COLOR),
+            draw.Circle(8, pos=(757, 565), color=LIFE_COLOR),
+            draw.Circle(8, pos=(780, 565), color=LIFE_COLOR),
         ]
         self.add(self.life_p1, layer=1)
         self.add(self.life_p2, layer=1)
@@ -78,8 +78,7 @@ class Pong(World):
             paddle = other
             delta_y = col.pos.y - paddle.pos.y
             ball.vel += (0, BALL_SPEED_CHANGE * delta_y)
-            
-        
+
     @listen('long-press', 'up', paddle_idx=1, direction=1)
     @listen('long-press', 'down', paddle_idx=1, direction=-1)
     @listen('long-press', 'w', paddle_idx=0, direction=1)
@@ -91,9 +90,6 @@ class Pong(World):
         y = max(y, 10 + PADDLE_HEIGHT / 2)
         y = min(y, 590 - PADDLE_HEIGHT / 2)
         paddle.pos = Vec(x, y)
-        
-    def on_frame_enter(self):
-        ...
     
     def __setattr__(self, attr, value):
         super().__setattr__(attr, value) 
